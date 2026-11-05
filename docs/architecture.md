@@ -1,52 +1,59 @@
-# Architettura e stato
+# Architettura
 
-## Modello di distribuzione
+## Distribuzione
 
-Contratto in Due Minuti è un'applicazione web open source con licenza MIT,
-self-hosted e single-agency. Ogni agenzia gestisce l'app, il database
-PostgreSQL, i segreti e gli eventuali servizi esterni. Non esistono un account,
-un database o un'infrastruttura a pagamento gestiti dal progetto. Non c'è un
-installer desktop.
+Contratto in Due Minuti è una web app MIT self-hosted e single-agency. Ogni
+agenzia gestisce applicazione, PostgreSQL, credenziali e servizi esterni. Il
+progetto non ospita dati o servizi a pagamento e non fornisce un installer
+desktop.
 
-## Percorso previsto
+## Flusso verticale
 
 ```text
-Anagrafica -> PDF di prenotazione -> bozza da revisionare
--> dati pratica e Incasso -> snapshot contratto
--> link cliente -> conferma
+Anagrafica + configurazione documento
+  -> PDF prenotazione -> estrazione proposta -> revisione umana
+  -> pratica + Incasso -> PDF immutabile + fingerprint
+  -> link cliente -> accettazione monouso -> stato visibile
 ```
 
-Il parser produce una proposta e non deve sostituire la verifica umana. Il
-backend contiene funzioni per creare pratiche e link associati a snapshot
-immutabili; i link hanno scadenza e possono essere revocati. La UI non collega
-ancora tutte queste parti. Esiste un endpoint tecnico che rende un PDF dallo
-snapshot, ma l'interfaccia non offre un flusso completo di redazione e invio.
+L'estrazione Anthropic produce una proposta modificabile. I dati non vengono
+salvati finché l'operatore non li rivede e invia la pratica. Il PDF caricato è
+tenuto in memoria durante la richiesta e non archiviato. Il nome dell'agenzia
+e il testo del documento possono essere inizializzati da variabili ambiente e
+modificati per ogni pratica.
 
-## Componenti attuali
+La pratica, i viaggiatori, l'Incasso e i dati di configurazione vengono salvati
+in una transazione. La generazione blocca la pratica, crea uno snapshot con
+tutti i dati mostrati al cliente, calcola un'impronta SHA-256 e salva il PDF
+assieme allo snapshot. Il link UUID ha scadenza di sette giorni. Rigenerare il
+documento revoca i link precedenti ancora pendenti. L'accettazione aggiorna in
+modo atomico richiesta e snapshot; i successivi invii non possono accettare
+di nuovo la stessa richiesta.
 
-- `src/app/api/booking-import`: riceve PDF fino a 10 MB e restituisce la bozza
-  estratta. Il file è tenuto in memoria durante la richiesta, non archiviato.
-- `src/lib/booking-import`: chiamata Anthropic e validazione dei dati estratti.
-- `src/lib/case.ts`: operazioni server per creare pratiche e link di conferma.
-- `src/app/confirm`: pagina pubblica di conferma per un token, senza login.
-- `src/lib/contract/pdf.ts`: generazione tecnica di un PDF riepilogativo dallo
-  snapshot; non equivale a un modello contrattuale revisionato dall'agenzia.
-- `db/init.sql`: schema iniziale PostgreSQL per clienti, pratiche e conferme.
+## Confini e accessi
 
-La protezione operatore con `OPERATOR_PASSWORD` è una barriera Basic Auth
-minima, non un sistema di account o autorizzazioni multiutente.
+- `src/lib/booking-import`: chiamata Anthropic e validazione della bozza.
+- `src/app/api/booking-import`: ricezione in streaming con limite di 10 MB,
+  validazione del tipo e firma PDF, autenticazione e controllo same-origin.
+- `src/lib/case.ts`: validazione, persistenza e transazioni per pratica,
+  snapshot, PDF e accettazione.
+- `src/lib/contract`: contenuto canonico, fingerprint e generazione PDF.
+- `src/app/confirm`: pagina pubblica legata al token, consultazione del PDF e
+  Server Action per l'accettazione.
+- `db/init.sql`: schema bootstrap PostgreSQL iniziale.
 
-## Configurazione e bootstrap
+Le pagine operatore sono protette da Basic Auth con `OPERATOR_PASSWORD`. Ogni
+endpoint di mutazione verifica di nuovo le credenziali e l'origine, perché il
+proxy non è l'unico confine di sicurezza. L'accettazione pubblica non richiede
+Basic Auth: richiede il token del documento e una richiesta same-origin.
 
-Usa un database PostgreSQL dedicato e configurato dall'agenzia in
-`DATABASE_URL`. Applica `db/init.sql` una volta al database vuoto. Non sono
-fornite migrazioni né backup automatici. Le variabili `S3_*` presenti in
-`.env.example` sono predisposte per un'eventuale integrazione futura; lo
-storage dei documenti non è implementato.
+## Persistenza e responsabilità
 
-## Confini di responsabilità
+`DATABASE_URL` deve puntare a un database dedicato gestito dall'agenzia.
+`db/init.sql` è destinato una sola volta a un database vuoto; non sono ancora
+fornite migrazioni o backup automatici. I PDF contrattuali sono in PostgreSQL
+come `bytea`; lo storage `S3_*` non è implementato.
 
-Le chiavi AI, i costi dei fornitori, la rete, TLS, i backup, gli aggiornamenti
-e i dati restano sotto il controllo dell'agenzia. Non inserire dati reali nei
-materiali di demo. L'esempio di contratto non è consulenza legale: il testo
-deve essere definito e revisionato da chi lo usa.
+Le chiavi AI, i costi, la rete, TLS, i backup, gli aggiornamenti e i dati
+restano sotto il controllo dell'agenzia. Il testo iniziale del contratto è un
+esempio tecnico, non consulenza legale o garanzia sui servizi prenotati.

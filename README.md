@@ -1,80 +1,90 @@
 # Contratto in Due Minuti
 
-Applicazione web open source con licenza MIT, da installare e gestire nel
-proprio ambiente. Aiuta le agenzie viaggi a trasformare una conferma di
-prenotazione PDF in una bozza di dati che una persona può verificare.
+Applicazione web open source con licenza MIT, self-hosted per agenzie di
+viaggio. Trasforma una conferma PDF di un Tour Operator in una bozza
+modificabile, da verificare prima di salvare una pratica e preparare il PDF
+da condividere con il cliente.
 
-Non è un servizio ospitato da noi e non richiede un nostro account. Ogni agenzia
-gestisce la propria istanza, il proprio PostgreSQL, la propria chiave Anthropic
-e gli eventuali servizi esterni. Non è disponibile un installer desktop.
+L'agenzia gestisce la propria installazione, il database PostgreSQL e la
+chiave Anthropic. Il progetto non ospita dati, non richiede un account sui
+nostri servizi e non offre un installer desktop.
 
-## Stato del progetto
+## Flusso disponibile
 
-Il prototipo corrente accetta un PDF, ne estrae una bozza con Anthropic e la
-mostra per la revisione. Il file caricato resta in memoria durante
-l'elaborazione e non viene archiviato.
+1. Inserisci i dati dell'agenzia e dell'Anagrafica cliente.
+2. Carica una conferma PDF del Tour Operator, fino a 10 MB.
+3. Controlla e modifica i dati estratti: operatore, viaggio, date,
+   viaggiatori e totale.
+4. Registra l'Incasso e salva la pratica.
+5. Genera il PDF, controllalo e copia il link per condividerlo con il cliente.
+6. Il cliente apre il link, consulta lo stesso PDF e può confermare una volta.
 
-Sono presenti lo schema SQL e parti server per creare pratiche e generare link
-di conferma con snapshot, scadenza e accettazione. Il flusso completo non è
-ancora collegato nell'interfaccia: non presentare la versione corrente come
-capace di completare tutta la pratica o inviare messaggi dall'interfaccia. È
-presente un endpoint tecnico per produrre un PDF dallo snapshot, ma non è un
-flusso di redazione e invio completo. Non è stato misurato un tempo end-to-end;
-“Due Minuti” è il nome del progetto, non una prestazione dimostrata.
+Il parser propone dati e livelli di confidenza; la verifica resta a carico
+dell'operatore. Il PDF di prenotazione caricato resta in memoria durante
+l'elaborazione e non viene archiviato. La pratica e il PDF contrattuale
+generato vengono salvati nel PostgreSQL dell'agenzia. Il link cliente scade
+dopo sette giorni; una nuova generazione revoca i link precedenti ancora in
+attesa. L'accettazione registrata rimane visibile sul link.
+
+L'app non invia email o messaggi: l'operatore condivide il link usando il
+canale scelto dall'agenzia. Il nome dell'agenzia e il testo del documento sono
+modificabili per ogni pratica. Le impostazioni in `.env.local` forniscono i
+valori iniziali del modulo.
+
+“Due Minuti” è il nome del progetto, non un tempo di completamento misurato.
 
 ## Requisiti
 
-- Node.js compatibile con la versione di Next.js usata dal progetto.
-- Un database PostgreSQL gestito dall'agenzia.
+- Node.js compatibile con la versione di Next.js del progetto.
+- Un database PostgreSQL dedicato e gestito dall'agenzia.
 - Una chiave Anthropic per usare l'estrazione AI.
 
-Per lo sviluppo non serve Docker. Puoi usare il PostgreSQL che già gestisci,
-oppure un servizio esterno scelto e pagato direttamente dalla tua agenzia.
+Per lo sviluppo non serve Docker. Puoi usare PostgreSQL già gestito
+dall'agenzia o un servizio scelto e pagato direttamente da essa.
 
 ## Avvio locale
 
-1. Crea un database PostgreSQL vuoto dedicato a questa applicazione. Non
-   riutilizzare credenziali o database di `gestionale-bge` o di altri sistemi.
-2. Copia `.env.example` in `.env.local` e imposta `DATABASE_URL` con la stringa
-   di connessione a quel database. Inserisci anche `ANTHROPIC_API_KEY` per
-   provare l'estrazione. Imposta `OPERATOR_PASSWORD` su una password privata.
-3. Applica il bootstrap SQL una sola volta al database vuoto:
+1. Crea un database PostgreSQL vuoto dedicato all'applicazione. Non riutilizzare
+   il database o le credenziali di altri sistemi.
+2. Copia `.env.example` in `.env.local`. Imposta `DATABASE_URL`,
+   `ANTHROPIC_API_KEY`, una `OPERATOR_PASSWORD` privata e `APP_URL` con
+   l'origine pubblica dell'app. Puoi configurare anche `AGENCY_NAME` e
+   `CONTRACT_TEMPLATE_TEXT`, che l'operatore potrà poi modificare nella
+   singola pratica.
+3. Applica il bootstrap una sola volta al database vuoto:
 
    ```bash
    psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
    ```
 
-4. Installa le dipendenze e avvia l'app:
+4. Installa le dipendenze e avvia:
 
    ```bash
    npm install
    npm run dev
    ```
 
-   Apri `http://localhost:3000`. Per l'accesso operatore, il browser chiederà
-   le credenziali Basic con nome utente `operator` e la password impostata in
-   `OPERATOR_PASSWORD`.
+   Apri `http://localhost:3000`. Il browser chiederà le credenziali Basic Auth:
+   nome utente `operator` e la password impostata in `OPERATOR_PASSWORD`.
 
-`db/init.sql` è un bootstrap iniziale, non un sistema di migrazioni. Non
-riapplicarlo a un database esistente senza aver prima verificato l'impatto.
-Per esporre l'app fuori dal computer locale, configura HTTPS, rete, backup,
-aggiornamenti e segreti nell'infrastruttura che gestisci.
+`db/init.sql` è il bootstrap iniziale, non un sistema di migrazioni. Usalo
+solo su un database vuoto. Prima di esporre l'app su Internet, configura HTTPS,
+rete, backup, aggiornamenti e segreti nell'infrastruttura che gestisci.
 
-## Configurazione
+## Configurazione e dati
 
-I nomi di configurazione sono elencati in `.env.example`. I valori `S3_*` sono
-segnaposto per una futura integrazione: in questa versione i PDF non vengono
-salvati su storage S3.
+Le variabili sono elencate in `.env.example`. Mantieni chiavi e valori personali
+in `.env.local`, che non va aggiunto al repository. `S3_*` è predisposto per
+un'integrazione futura: i PDF sono conservati nel database, non su S3.
 
-Next.js carica i file `.env*` dalla cartella principale del progetto. Mantieni
-segreti e valori personali in `.env.local`, che non va aggiunto al repository.
-Le variabili senza prefisso `NEXT_PUBLIC_` devono restare lato server. Consulta
-la guida ufficiale [Environment Variables](https://nextjs.org/docs/app/guides/environment-variables)
-e la guida [Self-Hosting](https://nextjs.org/docs/app/guides/self-hosting) per
-la configurazione Next.js nel tuo ambiente.
+L'accesso operatore usa una singola password Basic Auth; non è un sistema di
+account o ruoli. I collegamenti di conferma sono pubblici e protetti da token
+casuali, scadenza e accettazione monouso. Usa un'origine `APP_URL` corretta e
+HTTPS in un'installazione accessibile dall'esterno.
 
 ## Licenza e responsabilità
 
-Il codice è distribuito con licenza [MIT](LICENSE). L'esempio tecnico non è
-consulenza legale: ogni agenzia è responsabile dei propri testi contrattuali,
-della loro revisione e della gestione dei dati dei clienti.
+Il codice è distribuito con licenza [MIT](LICENSE). Il testo iniziale del
+documento è un esempio tecnico, non consulenza legale né garanzia sui servizi
+prenotati. Ogni agenzia deve definire e far revisionare i propri testi e
+gestire correttamente i dati dei clienti.
