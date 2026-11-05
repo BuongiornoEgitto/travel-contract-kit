@@ -1,2 +1,49 @@
-:root { color-scheme: light; font-family: Arial, sans-serif; background: #f7f4ed; color: #17261d; } * { box-sizing: border-box; } body { margin: 0; } main { max-width: 1080px; margin: auto; padding: 28px; } .hero { min-height: 64vh; display: grid; align-content: center; gap: 22px; } .eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .14em; color: #766d59; } h1 { margin: 0; font-size: clamp(3rem, 8vw, 7rem); line-height: .93; letter-spacing: -.075em; } .lede { max-width: 600px; font-size: 1.25rem; line-height: 1.5; } a { width: fit-content; padding: 13px 18px; background: #17261d; color: #f7f4ed; text-decoration: none; font-weight: bold; } .workflow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #c9c1b1; } article { padding: 30px; background: #fffdf7; min-height: 220px; } article span { color: #cb562b; font-weight: bold; } h2 { font-size: 1.55rem; } .principles { padding: 80px 0; max-width: 680px; font-size: 1.2rem; line-height: 1.55; } @media (max-width: 680px) { .workflow { grid-template-columns: 1fr; } }
-.importer { margin-top: 70px; padding: 36px; background: #e8efdf; max-width: 760px; } .importer form { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; } button { border: 0; padding: 12px 18px; background: #cb562b; color: white; font-weight: 700; cursor: pointer; } button:disabled { opacity: .6; } .error { color: #9c241a; font-weight: 700; } .draft { margin-top: 28px; padding: 22px; background: #fffdf7; } dl { display: grid; grid-template-columns: 130px 1fr; gap: 10px; } dt { font-weight: 700; }
+:root { color-scheme: light; font-family: Arial, sans-serif; background: #f7f4ed; color: #17261d; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 1080px; margin: auto; padding: 28px; }
+.hero { min-height: 56vh; display: grid; align-content: center; gap: 22px; }
+.eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .14em; color: #766d59; }
+h1 { margin: 0; font-size: clamp(3rem, 8vw, 7rem); line-height: .93; letter-spacing: -.075em; }
+.lede { max-width: 600px; font-size: 1.25rem; line-height: 1.5; }
+a { width: fit-content; color: #174430; font-weight: 700; }
+.hero a { padding: 13px 18px; background: #17261d; color: #f7f4ed; text-decoration: none; }
+.workflow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #c9c1b1; }
+article { padding: 30px; background: #fffdf7; min-height: 220px; }
+article span { color: #cb562b; font-weight: bold; }
+h2 { font-size: 1.55rem; }
+.principles { padding: 80px 0; max-width: 680px; font-size: 1.2rem; line-height: 1.55; }
+.importer { margin: 70px 0; padding: clamp(22px, 5vw, 42px); background: #e8efdf; }
+.importer > p { max-width: 720px; line-height: 1.55; }
+.importer form { display: grid; gap: 18px; margin-top: 24px; }
+fieldset { display: grid; gap: 14px; padding: 20px; border: 1px solid #b9c4b2; background: #f8faf4; }
+fieldset:disabled { opacity: .72; }
+legend { padding: 0 8px; font-weight: 700; }
+label { display: grid; gap: 7px; font-weight: 700; }
+input, textarea { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #9aa494; border-radius: 3px; background: white; color: #17261d; font: inherit; }
+input[type="file"] { padding: 7px; }
+input[type="checkbox"] { width: 22px; min-height: 22px; }
+textarea { min-height: 92px; resize: vertical; }
+button { width: fit-content; min-height: 44px; border: 0; border-radius: 3px; padding: 12px 18px; background: #cb562b; color: white; font-weight: 700; cursor: pointer; }
+button:disabled { opacity: .6; cursor: wait; }
+button.secondary { background: #41584b; }
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.traveller { align-items: end; padding: 12px; background: #edf2e8; }
+.error { color: #9c241a; font-weight: 700; }
+.draft { display: grid; gap: 12px; margin-top: 24px; padding: 22px; background: #fffdf7; overflow-wrap: anywhere; }
+.confirmation { max-width: 760px; padding-top: 72px; }
+.confirmation h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
+.contract-preview { margin: 28px 0; padding: 28px; background: #fffdf7; border: 1px solid #c9c1b1; line-height: 1.6; }
+.contract-preview h3 { margin-top: 28px; }
+.template-copy { white-space: pre-wrap; }
+.legal-note { font-size: .9rem; color: #625b4c; }
+.accepted { padding: 14px; background: #e8efdf; font-weight: 700; }
+.confirmation form { display: grid; gap: 18px; margin: 30px 0; }
+.confirmation form label { display: flex; align-items: center; gap: 12px; }
+.fingerprint { overflow-wrap: anywhere; font-family: monospace; font-size: .75rem; color: #766d59; }
+@media (max-width: 680px) {
+  main { padding: 20px; }
+  .workflow { grid-template-columns: 1fr; }
+  .field-grid { grid-template-columns: 1fr; }
+  .importer { margin: 48px 0; }
+}
