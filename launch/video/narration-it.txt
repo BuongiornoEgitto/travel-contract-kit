@@ -1,0 +1,25 @@
+Questa è una demo di un prototipo in sviluppo.
+
+Il progetto si chiama Contratto in Due Minuti ed è pensato per le agenzie
+viaggi che ricevono conferme di prenotazione in PDF.
+
+In questa versione posso caricare un PDF e ottenere una bozza di dati estratti.
+La bozza è un punto di partenza: una persona deve controllarla e correggerla.
+
+Il file viene elaborato in memoria e non viene archiviato.
+
+Il flusso completo con anagrafica, pratica, contratto e conferma del cliente
+non è ancora collegato nell'interfaccia. Quello che vedete qui è il prototipo
+attuale, non una dimostrazione di tutte le funzioni previste.
+
+Il codice è open source con licenza MIT. È un'app web self-hosted: ogni
+agenzia gestisce la propria installazione, il proprio database PostgreSQL e
+la propria chiave Anthropic. Non c'è un account o un'infrastruttura ospitata
+dal progetto.
+
+Se vuoi provarlo o contribuire, trovi il repository nella descrizione. Per
+un eventuale aiuto con il setup puoi usare il contatto indicato lì, se
+disponibile.
+
+Il parser non sostituisce la verifica dei dati e il testo contrattuale deve
+essere definito e revisionato dall'agenzia.
