@@ -1,25 +1,26 @@
-Questa è una demo di un prototipo in sviluppo.
+Oggi ti mostro Contratto in Due Minuti, un'applicazione web open source e
+self-hosted pensata per le agenzie di viaggio.
 
-Il progetto si chiama Contratto in Due Minuti ed è pensato per le agenzie
-viaggi che ricevono conferme di prenotazione in PDF.
+Parto dai dati dell'agenzia e da un cliente dimostrativo. Carico una conferma
+di prenotazione in PDF. Il parser propone i campi che riesce a estrarre, ma la
+bozza va sempre controllata da una persona.
 
-In questa versione posso caricare un PDF e ottenere una bozza di dati estratti.
-La bozza è un punto di partenza: una persona deve controllarla e correggerla.
+Verifico il nome del Tour Operator, il riferimento della prenotazione, il
+viaggio, le date, i viaggiatori e il totale. Se un dato non è corretto o manca,
+lo correggo qui prima di continuare.
 
-Il file viene elaborato in memoria e non viene archiviato.
+Ora registro l'Incasso e salvo la pratica. Genero il PDF e il link di
+conferma. Il documento generato fotografa i dati salvati; il link permette al
+cliente di consultare lo stesso documento e confermarlo.
 
-Il flusso completo con anagrafica, pratica, contratto e conferma del cliente
-non è ancora collegato nell'interfaccia. Quello che vedete qui è il prototipo
-attuale, non una dimostrazione di tutte le funzioni previste.
+Il link non viene inviato automaticamente: l'agenzia lo condivide con il
+canale che preferisce. Il PDF di prenotazione è elaborato in memoria e non
+viene archiviato; il PDF generato viene conservato nel database PostgreSQL
+dell'agenzia.
 
-Il codice è open source con licenza MIT. È un'app web self-hosted: ogni
-agenzia gestisce la propria installazione, il proprio database PostgreSQL e
-la propria chiave Anthropic. Non c'è un account o un'infrastruttura ospitata
-dal progetto.
+Il progetto è open source con licenza MIT. Ogni agenzia gestisce la propria
+installazione, il proprio database e la propria chiave Anthropic. Il nome
+“Due Minuti” non è una promessa di tempo misurato.
 
-Se vuoi provarlo o contribuire, trovi il repository nella descrizione. Per
-un eventuale aiuto con il setup puoi usare il contatto indicato lì, se
-disponibile.
-
-Il parser non sostituisce la verifica dei dati e il testo contrattuale deve
-essere definito e revisionato dall'agenzia.
+I dati mostrati sono fittizi. Il parser richiede revisione e il testo
+contrattuale deve essere definito e controllato dall'agenzia.

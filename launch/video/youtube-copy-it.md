@@ -1,49 +1,50 @@
-# Pubblicazione YouTube — italiano
+# Testi per il video — italiano
 
 ## Titoli
 
-1. Da conferma PDF a bozza verificabile: demo di un prototipo open source
-2. Un parser AI self-hosted per le agenzie viaggi
-3. Ho provato un flusso self-hosted per leggere conferme di prenotazione PDF
-4. Open source per agenzie viaggi: importare e controllare una conferma PDF
+1. Da conferma PDF a contratto: demo self-hosted per agenzie viaggi
+2. Come verificare i dati di una prenotazione PDF con un parser AI
+3. Open source per agenzie viaggi: PDF, pratica e conferma cliente
+4. Ho preparato un'app self-hosted per le conferme di viaggio in PDF
 
-Nessun titolo promette tempi, risparmi o accuratezza misurati.
+Non usare “in due minuti” come risultato verificato: il nome del progetto non
+è una misurazione delle prestazioni.
 
 ## Descrizione
 
-In questa demo mostro il prototipo di Contratto in Due Minuti: carica una
-conferma di prenotazione in PDF e restituisce una bozza da verificare. Il file
-caricato viene elaborato in memoria e non archiviato.
+In questo video mostro il flusso di Contratto in Due Minuti: inserisco
+l'Anagrafica, carico una conferma PDF, verifico la bozza, salvo la pratica e
+l'Incasso, genero il PDF e apro il link di conferma del cliente.
 
-Il progetto è un'app web open source con licenza MIT, pensata per essere
-self-hosted. Ogni agenzia gestisce il proprio database PostgreSQL e la propria
-chiave Anthropic. La pratica completa, la generazione del PDF contrattuale e
-la conferma cliente non sono ancora collegate nell'interfaccia.
+L'app è open source con licenza MIT e si installa nell'ambiente gestito
+dall'agenzia. Il database PostgreSQL e la chiave Anthropic sono forniti e
+gestiti da chi installa l'app. Il PDF di prenotazione è elaborato in memoria;
+il documento generato viene salvato nel database. Il link cliente non viene
+inviato automaticamente: l'agenzia lo condivide manualmente.
 
-Codice sorgente: [INSERIRE LINK DEL REPOSITORY]
+Repository: [INSERIRE LINK DEL REPOSITORY]
 
-Il prototipo non sostituisce la verifica dei dati né la revisione legale del
-testo contrattuale. Non è stata misurata una durata end-to-end.
+La bozza AI deve essere controllata da una persona. Il testo del documento è
+responsabilità dell'agenzia e non costituisce consulenza legale. I dati usati
+nella registrazione sono fittizi.
 
 ## Commento fissato
 
-Il codice è open source e puoi installarlo nel tuo ambiente. Vuoi contribuire
-o raccontare quale formato di conferma PDF dovremmo considerare? Scrivi qui
-sotto. Per assistenza di setup a pagamento, contatto: [INSERIRE CONTATTO, SE
-DISPONIBILE].
+Il codice è open source e self-hosted. Quale formato di conferma PDF sarebbe
+utile supportare? Se cerchi aiuto con l'installazione, contatto facoltativo:
+[INSERIRE CONTATTO, SE DISPONIBILE].
 
-## Teaser breve (20–30 secondi)
+## Teaser (20–30 secondi)
 
-“Questa è una demo, non una promessa di magia: carico una conferma di
-prenotazione PDF e il prototipo restituisce una bozza che una persona deve
-controllare. Il codice è open source e gira nell'ambiente che gestisci tu,
-con il tuo database e la tua chiave AI. Il flusso completo è ancora in
-sviluppo. Guarda la demo e trova il repository nella descrizione.”
+“Carico una conferma di viaggio in PDF, controllo i dati proposti dall'AI e
+salvo pratica e Incasso. Poi genero il PDF e apro il link che il cliente può
+consultare e confermare. Il codice è open source e si installa nel database e
+nell'ambiente gestiti dall'agenzia. Ti mostro tutto il flusso nella demo.”
 
 ## Idee per il nome del canale
 
-Disponibilità di nomi, handle e marchi non verificata; controllare prima di
-usarne uno.
+Disponibilità di nomi, handle e marchi non verificata. Controllare prima
+dell'uso.
 
 - Officina Viaggi Digitale
 - Strumenti per Agenzie Viaggi

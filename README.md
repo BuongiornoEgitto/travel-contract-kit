@@ -54,8 +54,13 @@ dall'agenzia o un servizio scelto e pagato direttamente da essa.
 3. Applica il bootstrap una sola volta al database vuoto:
 
    ```bash
+   export DATABASE_URL='postgresql://UTENTE:PASSWORD@HOST:5432/DATABASE'
    psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
    ```
+
+   `.env.local` viene caricato da Next.js, non dalla shell. Imposta quindi la
+   variabile nel Terminale come sopra, oppure applica `db/init.sql` dalla
+   console SQL del servizio PostgreSQL.
 
 4. Installa le dipendenze e avvia:
 

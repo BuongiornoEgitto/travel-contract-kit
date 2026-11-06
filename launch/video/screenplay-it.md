@@ -1,59 +1,53 @@
-# Video italiano — demo trasparente del prototipo
+# Copione demo — “Da PDF a conferma cliente”
 
-**Titolo di lavorazione:** Da conferma PDF a bozza verificabile: un prototipo open source
+**Durata indicativa:** 4–5 minuti. Registra il flusso reale senza timer.
+**Voce:** umana, dal vivo o registrata separatamente. La narrazione completa è
+in `narration-it.txt`.
 
-**Durata indicativa:** 3–4 minuti, da adattare al ritmo della registrazione.
-**Formato:** registrazione schermo reale, narratore umano, nessun avatar o
-audio generato. **Stato da dichiarare:** prototipo; la pratica completa e la
-conferma cliente non sono ancora collegate nell'interfaccia.
+## 0:00–0:25 — Introduzione
 
-## 0:00–0:20 — Apertura
+Mostra la homepage e il nome del progetto. Presenta l'app come web app open
+source self-hosted per agenzie viaggio. Spiega che l'agenzia gestisce database
+e chiave AI.
 
-**Video:** schermata iniziale dell'app. Sovrimpressione: “Prototipo in
-sviluppo”. Evitare un timer.
+## 0:25–0:55 — Agenzia e cliente
 
-**Voce:** usa il testo corrispondente in `narration-it.txt`.
+Mostra il nome agenzia, il testo del documento e i contatti fittizi del cliente.
+Sottolinea che nome e testo si possono controllare prima di salvare.
 
-## 0:20–0:40 — Per chi è
+## 0:55–1:45 — Caricamento PDF e bozza
 
-**Video:** mostra il titolo e i tre passaggi presentati dalla pagina. Non
-simulare funzioni non presenti.
+Seleziona un PDF demo anonimo e avvia l'estrazione. Mostra la bozza e controlla
+Tour Operator, riferimento, viaggio, date, viaggiatori e totale. Modifica almeno
+un valore se serve; non inventare errori per rendere la demo più spettacolare.
 
-## 0:40–1:50 — Upload e revisione
+## 1:45–2:30 — Revisione e Incasso
 
-**Video:** carica un PDF demo preparato e autorizzato, poi mostra la bozza
-restituita. Fai vedere almeno una verifica puntuale. Se la risposta non
-contiene un errore naturale da correggere, indica un campo da controllare senza
-alterare di nascosto il risultato.
+Mostra i dati verificati, il totale e l'Incasso fittizio. Salva la pratica e
+attendi il messaggio di conferma.
 
-**Sovrimpressione:** “La bozza va controllata da una persona”.
+## 2:30–3:20 — PDF e link
 
-## 1:50–2:25 — Confini della versione attuale
+Genera PDF e link. Apri il PDF salvato e mostra che corrisponde alla pratica.
+Spiega che il PDF caricato non viene archiviato, mentre il PDF generato viene
+salvato nel database dell'agenzia.
 
-**Video:** torna alla pagina e mostra una card grafica “Prossimi passaggi” con
-Anagrafica, pratica, contratto e conferma cliente. Etichettala chiaramente
-“Flusso previsto, non ancora collegato nell'interfaccia”. Non creare finte
-schermate di completamento o accettazione.
+## 3:20–4:10 — Vista cliente
 
-## 2:25–3:15 — Self-hosted
+Apri il link in una finestra privata. Mostra il documento e la possibilità di
+confermare. Se registri l'accettazione, usa esclusivamente il profilo demo;
+l'azione è monouso.
 
-**Video:** mostra README, licenza MIT, `.env.example` senza valori segreti e la
-sezione che spiega database PostgreSQL proprio. Non mostrare terminale con
-credenziali, chiavi o nomi di database di lavoro.
+## 4:10–4:40 — Chiusura
 
-## 3:15–3:40 — Chiusura
+Mostra README, licenza MIT e configurazione con segreti nascosti. Ricorda che
+l'app non invia messaggi: il link viene condiviso manualmente dall'agenzia.
+Invita a consultare il repository usando il link che sarà aggiunto alla
+descrizione del video.
 
-**Video:** repository e invito a provare il prototipo o contribuire. Contatto
-facoltativo per assistenza di setup, se disponibile.
+## Regole durante le riprese
 
-## Indicazioni di ripresa
-
-- Usa solo account demo e PDF anonimi, autorizzati e privi di dati personali.
-- Non mostrare prezzi, risparmi, tempi promessi o accuratezza non misurati.
-- Il titolo del progetto contiene “Due Minuti”: non trasformarlo in una
-  promessa di durata. Se in futuro si testa la velocità, pubblicare metodo,
-  campione e risultato reale.
-- Non dire che genera un PDF contrattuale o invia messaggi: queste funzioni non
-  sono disponibili nel flusso UI corrente.
-- Registra almeno a 1080p, con zoom leggibile e notifiche desktop disattivate.
-- Il testo contrattuale di esempio non è consulenza legale.
+- Usa solo PDF e dati sintetici o anonimizzati, autorizzati.
+- Non mostrare chiavi, password, email personali o dati di clienti.
+- Non promettere durata, risparmi o accuratezza non misurati.
+- Il testo contrattuale d'esempio non è consulenza legale.

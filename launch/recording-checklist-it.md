@@ -1,34 +1,35 @@
-# Checklist di registrazione
+# Checklist per registrare e montare la demo
 
-## Prima di registrare
+## Preparazione
 
-- [ ] Avvia una build/demo aggiornata e verifica cosa funziona davvero.
-- [ ] Usa un database demo dedicato, mai il database di `gestionale-bge`.
-- [ ] Usa un PDF sintetico o anonimizzato e autorizzato, senza dati personali.
-- [ ] Controlla che il PDF sia entro il limite corrente di 10 MB.
-- [ ] Imposta una chiave AI demo e controlla eventuali costi del fornitore.
-- [ ] Pulisci il browser, chiudi schede personali e disattiva le notifiche.
-- [ ] Rimuovi dal video log, credenziali, chiavi, email e dati identificativi.
-- [ ] Prepara la scheda “prossimi passaggi” con etichetta “in sviluppo”.
-- [ ] Registra con la tua voce oppure con un narratore umano autorizzato.
-- [ ] Non usare avatar o audio sintetici; non sono stati forniti input di
-  identità vocale.
+- [ ] Leggi [la guida completa](guida-completa-repository-video.md), copione e
+  shot list.
+- [ ] Avvia l'app con un database demo dedicato.
+- [ ] Usa un PDF sintetico o anonimizzato, autorizzato e sotto i 10 MB.
+- [ ] Usa contatti, viaggiatori e importi fittizi.
+- [ ] Prova tutto il flusso: estrazione, correzione, salvataggio, PDF e link.
+- [ ] Controlla il microfono e fai una registrazione di prova.
+- [ ] Chiudi notifiche, schede e finestre personali.
+- [ ] Nascondi `.env.local`, terminali con segreti e password manager.
+- [ ] Registra la narrazione con voce umana; non usare avatar o audio sintetici.
 
-## Durante la registrazione
+## Ripresa
 
-- [ ] Mostra solo risultati reali restituiti dal prototipo.
-- [ ] Specifica che la bozza richiede controllo umano.
-- [ ] Non simulare Anagrafica, Incasso, generazione PDF, invio o conferma cliente.
-- [ ] Non mostrare un timer né dichiarare durata, risparmi o accuratezza.
-- [ ] Leggi la narrazione italiana e mantieni visibile lo stato “prototipo”.
+- [ ] Mostra l'interfaccia reale e dati fittizi.
+- [ ] Dichiara che i campi estratti vanno verificati.
+- [ ] Apri il PDF e link di conferma prima della ripresa finale.
+- [ ] Spiega che il link si condivide manualmente; non ci sono invii automatici.
+- [ ] Se mostri l'accettazione, usa una pratica demo: la conferma è monouso.
+- [ ] Evita promesse di velocità, risparmi o accuratezza.
 
-## Prima della pubblicazione
+## Montaggio e controllo
 
-- [ ] Inserisci il link corretto al repository.
-- [ ] Inserisci un contatto solo se effettivamente disponibile.
-- [ ] Ricontrolla titolo, miniatura, descrizione e teaser per promesse non
-  dimostrate.
-- [ ] Verifica che la miniatura non contenga loghi, nomi o dati di clienti.
-- [ ] Mantieni l'avvertenza che il testo d'esempio non è consulenza legale.
-- [ ] Controlla disponibilità di nome e handle del canale; le idee nel copy non
-  sono state verificate.
+- [ ] Mantieni i passaggi nell'ordine del flusso.
+- [ ] Taglia attese, pause ed errori senza nascondere il funzionamento reale.
+- [ ] Inserisci titoli e sottotitoli italiani leggibili.
+- [ ] Riguarda tutto il video e riascolta l'audio.
+- [ ] Controlla che non compaiano dati personali o credenziali.
+- [ ] Aggiungi l'avvertenza sul testo contrattuale, da definire e revisionare
+  dall'agenzia.
+- [ ] Esporta una copia MP4 1080p H.264 con audio AAC e salvala fuori dal repo.
+- [ ] Non pubblicare né inviare il video in questa procedura.

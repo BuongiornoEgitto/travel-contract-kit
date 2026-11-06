@@ -1,20 +1,24 @@
-# Shot list
+# Shot list per la demo completa
 
-| # | Ripresa | Preparazione e controllo |
+| # | Ripresa | Azione e controllo |
 |---|---|---|
-| 1 | Pagina iniziale dell'app | Badge “Prototipo in sviluppo”; niente timer |
-| 2 | Form di importazione | Browser pulito; nessun dato personale visibile |
-| 3 | Selezione PDF | File demo autorizzato e anonimizzato, max 10 MB |
-| 4 | Risposta del parser | Mostra bozza reale; indica che va verificata |
-| 5 | Scheda “prossimi passaggi” | Grafica dichiarata come flusso previsto, non UI esistente |
-| 6 | README e licenza MIT | `.env.example` senza segreti o valori reali |
-| 7 | Chiusura sul repository | Inserire link verificato prima della pubblicazione |
+| 1 | Homepage | Presenta app web, open source e self-hosted |
+| 2 | Agenzia e Anagrafica | Usa nome agenzia e contatti fittizi |
+| 3 | PDF di prenotazione | Carica file sintetico/anonimo entro 10 MB |
+| 4 | Bozza AI | Mostra i valori estratti; controlla e correggi i campi |
+| 5 | Dati pratica | Mostra viaggio, viaggiatori, totale e Incasso demo |
+| 6 | Salvataggio | Premi “Salva pratica e Incasso” |
+| 7 | Documento | Genera il PDF; apri e controlla il file salvato |
+| 8 | Link cliente | Apri anteprima cliente in finestra privata |
+| 9 | Conferma | Facoltativa: conferma con il profilo demo; azione monouso |
+| 10 | Repository | Mostra README e licenza; oscura i segreti in `.env.example` |
 
-## B-roll facoltativo
+## Dettagli da tenere fuori dall'inquadratura
 
-- Mano che seleziona il PDF demo sul computer.
-- Dettaglio della licenza MIT e della configurazione self-hosted.
-- Grafica semplice del flusso previsto con etichetta “in sviluppo”.
+- Chiavi Anthropic, password, stringhe `DATABASE_URL` e file `.env.local`.
+- Dati reali, email, date di nascita o codici di prenotazione dei clienti.
+- Notifiche desktop, schede personali e nomi di altri database.
+- Loghi Tour Operator senza autorizzazione.
 
-Non riprendere database, dashboard dei fornitori, notifiche, credenziali, email
-o dati reali dei clienti. Non usare loghi di Tour Operator senza autorizzazione.
+Non serve mostrare un timer. Se la prova completa supera il tempo previsto,
+taglia le attese in montaggio senza dichiarare un tempo di esecuzione.
