@@ -4,6 +4,7 @@
 |---|---|---|
 | Miniatura grafica | `launch/thumbnail/pdf-to-contract.png` | Immagine disponibile, ma mostra un contratto approvato; non usarla per la demo del prototipo senza aggiornarla |
 | Brief miniatura | `launch/thumbnail/prompt.md` | Nuova direzione: PDF → bozza da controllare, senza promessa di velocità |
+| Guida visiva | `launch/guida-repository-video.png` | Percorso in sei passi dal repository alla registrazione e al montaggio |
 | Copione video | `launch/video/screenplay-it.md` | Scaletta della demo trasparente del prototipo |
 | Narrazione | `launch/video/narration-it.txt` | Testo voce in italiano, leggibile così com'è |
 | Shot list | `launch/video/shot-list.md` | Riprese e preparazione |
