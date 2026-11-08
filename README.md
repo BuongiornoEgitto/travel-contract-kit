@@ -1,95 +1,57 @@
-# Contratto in Due Minuti
+# Travel Contract Kit
 
-Applicazione web open source con licenza MIT, self-hosted per agenzie di
-viaggio. Trasforma una conferma PDF di un Tour Operator in una bozza
-modificabile, da verificare prima di salvare una pratica e preparare il PDF
-da condividere con il cliente.
+An open-source web app for travel agencies. Upload a booking confirmation PDF,
+review the extracted details, save the case and payment, then create a
+contract summary PDF and a confirmation link for the customer.
 
-L'agenzia gestisce la propria installazione, il database PostgreSQL e la
-chiave Anthropic. Il progetto non ospita dati, non richiede un account sui
-nostri servizi e non offre un installer desktop.
+The app is self-hosted. Each agency provides its own PostgreSQL database and
+Anthropic API key. It does not run on our servers or send messages for you.
+The agency shares the customer link manually.
 
-## Flusso disponibile
+## Run it yourself
 
-1. Inserisci i dati dell'agenzia e dell'Anagrafica cliente.
-2. Carica una conferma PDF del Tour Operator, fino a 10 MB.
-3. Controlla e modifica i dati estratti: operatore, viaggio, date,
-   viaggiatori e totale.
-4. Registra l'Incasso e salva la pratica.
-5. Genera il PDF, controllalo e copia il link per condividerlo con il cliente.
-6. Il cliente apre il link, consulta lo stesso PDF e può confermare una volta.
+You need Node.js, npm, a PostgreSQL database dedicated to this app, and an
+Anthropic API key.
 
-Il parser propone dati e livelli di confidenza; la verifica resta a carico
-dell'operatore. Il PDF di prenotazione caricato resta in memoria durante
-l'elaborazione e non viene archiviato. La pratica e il PDF contrattuale
-generato vengono salvati nel PostgreSQL dell'agenzia. Il link cliente scade
-dopo sette giorni; una nuova generazione revoca i link precedenti ancora in
-attesa. L'accettazione registrata rimane visibile sul link.
-
-L'app non invia email o messaggi: l'operatore condivide il link usando il
-canale scelto dall'agenzia. Il nome dell'agenzia e il testo del documento sono
-modificabili per ogni pratica. Le impostazioni in `.env.local` forniscono i
-valori iniziali del modulo.
-
-“Due Minuti” è il nome del progetto, non un tempo di completamento misurato.
-
-## Requisiti
-
-- Node.js compatibile con la versione di Next.js del progetto.
-- Un database PostgreSQL dedicato e gestito dall'agenzia.
-- Una chiave Anthropic per usare l'estrazione AI.
-
-Per lo sviluppo non serve Docker. Puoi usare PostgreSQL già gestito
-dall'agenzia o un servizio scelto e pagato direttamente da essa.
-
-## Avvio locale
-
-1. Crea un database PostgreSQL vuoto dedicato all'applicazione. Non riutilizzare
-   il database o le credenziali di altri sistemi.
-2. Copia `.env.example` in `.env.local`. Imposta `DATABASE_URL`,
-   `ANTHROPIC_API_KEY`, una `OPERATOR_PASSWORD` privata e `APP_URL` con
-   l'origine pubblica dell'app. Puoi configurare anche `AGENCY_NAME` e
-   `CONTRACT_TEMPLATE_TEXT`, che l'operatore potrà poi modificare nella
-   singola pratica.
-3. Applica il bootstrap una sola volta al database vuoto:
+1. Download or clone this repository.
+2. Create an empty PostgreSQL database. Do not reuse a database or credentials
+   from another application.
+3. Copy `.env.example` to `.env.local` and set `DATABASE_URL`,
+   `ANTHROPIC_API_KEY`, `APP_URL`, and a private `OPERATOR_PASSWORD`. You can
+   also change `AGENCY_NAME` and `CONTRACT_TEMPLATE_TEXT`.
+4. Apply `db/init.sql` once to the empty database. With `psql`, set the
+   connection string in your terminal and run:
 
    ```bash
-   export DATABASE_URL='postgresql://UTENTE:PASSWORD@HOST:5432/DATABASE'
+   export DATABASE_URL='postgresql://USER:PASSWORD@HOST:5432/DATABASE'
    psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/init.sql
    ```
 
-   `.env.local` viene caricato da Next.js, non dalla shell. Imposta quindi la
-   variabile nel Terminale come sopra, oppure applica `db/init.sql` dalla
-   console SQL del servizio PostgreSQL.
-
-4. Installa le dipendenze e avvia:
+   Or run `db/init.sql` in your database provider's SQL console. This is an
+   initial database setup, not a migration system. `.env.local` is loaded by
+   Next.js, not by your terminal.
+5. Install and start the app:
 
    ```bash
    npm install
    npm run dev
    ```
 
-   Apri `http://localhost:3000`. Il browser chiederà le credenziali Basic Auth:
-   nome utente `operator` e la password impostata in `OPERATOR_PASSWORD`.
+6. Open `http://localhost:3000`. Sign in with username `operator` and the
+   password from `OPERATOR_PASSWORD`.
 
-`db/init.sql` è il bootstrap iniziale, non un sistema di migrazioni. Usalo
-solo su un database vuoto. Prima di esporre l'app su Internet, configura HTTPS,
-rete, backup, aggiornamenti e segreti nell'infrastruttura che gestisci.
+See [docs/architecture.md](docs/architecture.md) for how the data flow works,
+and [the full human guide](launch/guida-completa-repository-video.md) for a
+demo walkthrough. See [AGENTS.md](AGENTS.md) for instructions to coding agents.
 
-## Configurazione e dati
+## Privacy and responsibility
 
-Le variabili sono elencate in `.env.example`. Mantieni chiavi e valori personali
-in `.env.local`, che non va aggiunto al repository. `S3_*` è predisposto per
-un'integrazione futura: i PDF sono conservati nel database, non su S3.
+Use a database that you control. Booking PDFs are processed in memory and are
+not stored; the generated contract PDF and case data are stored in your
+PostgreSQL database. The AI draft must be reviewed by a person. The sample
+contract text is not legal advice; each agency is responsible for its own
+contract wording and customer data.
 
-L'accesso operatore usa una singola password Basic Auth; non è un sistema di
-account o ruoli. I collegamenti di conferma sono pubblici e protetti da token
-casuali, scadenza e accettazione monouso. Usa un'origine `APP_URL` corretta e
-HTTPS in un'installazione accessibile dall'esterno.
+## License
 
-## Licenza e responsabilità
-
-Il codice è distribuito con licenza [MIT](LICENSE). Il testo iniziale del
-documento è un esempio tecnico, non consulenza legale né garanzia sui servizi
-prenotati. Ogni agenzia deve definire e far revisionare i propri testi e
-gestire correttamente i dati dei clienti.
+MIT. See [LICENSE](LICENSE).
