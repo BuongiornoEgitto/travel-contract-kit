@@ -12,6 +12,10 @@ work.
   connection to another product's database unless the user asks for it.
 - Keep secrets in local environment configuration. Never read out, log, or
   commit `.env.local`, API keys, passwords, or real customer data.
+- Read configuration through `src/lib/config.ts`, never `process.env` directly,
+  so the guided setup keeps working without a server restart.
+- Preserve the setup guards: `/setup` stays reachable only while the app is
+  unconfigured and only with the one-time token printed in the terminal.
 - Use synthetic or anonymized booking data in examples and demonstrations.
 
 ## Data and customer flow
