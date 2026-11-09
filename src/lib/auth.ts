@@ -1,14 +1,15 @@
 import { timingSafeEqual } from 'node:crypto';
+import { expectedOrigin, getConfig, missingConfiguration } from './config';
 
 export function operatorGuard(request: Request): Response | null {
-  const password = process.env.OPERATOR_PASSWORD;
-  if (!password || password === 'change-this-before-public-use') return new Response('Configura una OPERATOR_PASSWORD robusta.', { status: 503 });
+  const config = getConfig();
+  if (missingConfiguration(config).includes('OPERATOR_PASSWORD')) return new Response('Configura una OPERATOR_PASSWORD robusta.', { status: 503 });
   if (!sameOrigin(request)) return new Response('Richiesta non valida.', { status: 403 });
   const authorization = request.headers.get('authorization') ?? '';
   const match = authorization.match(/^Basic ([A-Za-z0-9+/]+=*)$/);
   let supplied = '';
   try { if (match) supplied = Buffer.from(match[1], 'base64').toString('utf8'); } catch { /* Invalid credential is handled below. */ }
-  const expected = `operator:${password}`;
+  const expected = `operator:${config.operatorPassword}`;
   const actualBytes = Buffer.from(supplied);
   const expectedBytes = Buffer.from(expected);
   if (actualBytes.length !== expectedBytes.length || !timingSafeEqual(actualBytes, expectedBytes)) {
@@ -21,7 +22,6 @@ export function sameOrigin(request: Request): boolean {
   const origin = request.headers.get('origin');
   if (!origin) return false;
   try {
-    const expected = process.env.APP_URL ? new URL(process.env.APP_URL).origin : new URL(request.url).origin;
-    return new URL(origin).origin === expected;
+    return new URL(origin).origin === expectedOrigin(request.url);
   } catch { return false; }
 }

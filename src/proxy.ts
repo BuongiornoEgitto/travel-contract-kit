@@ -1,14 +1,27 @@
 import { timingSafeEqual } from 'node:crypto';
 import { NextResponse, type NextRequest } from 'next/server';
+import { getConfig, isConfigured, missingConfiguration } from '@/lib/config';
 
 /**
  * v1 is intentionally a single-agency self-hosted app. Basic authentication
  * is a small operational guard, not a replacement for future user accounts.
  * Public confirmation links bypass this proxy and are protected by UUID token.
+ * The setup wizard is reachable before any password exists; it guards itself
+ * with the one-time token printed in the terminal.
  */
 export function proxy(request: NextRequest) {
-  const password = process.env.OPERATOR_PASSWORD;
-  if (!password || password === 'change-this-before-public-use') return new NextResponse('Configura una OPERATOR_PASSWORD robusta.', { status: 503 });
+  const { pathname } = request.nextUrl;
+  if (pathname === '/setup' || pathname === '/api/setup') return NextResponse.next();
+
+  if (!isConfigured()) {
+    if (missingConfiguration().length === 1 && missingConfiguration()[0] === 'OPERATOR_PASSWORD') {
+      // An installation configured by hand but left on the sample password.
+      return new NextResponse('Configura una OPERATOR_PASSWORD robusta.', { status: 503 });
+    }
+    return NextResponse.redirect(new URL('/setup', request.url));
+  }
+
+  const password = getConfig().operatorPassword;
   const authorization = request.headers.get('authorization') ?? '';
   const match = authorization.match(/^Basic ([A-Za-z0-9+/]+=*)$/);
   let supplied = '';
